@@ -151,7 +151,7 @@ open class AssetsPhotoViewController: UIViewController {
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !didSetInitialPosition {
+        if !didSetInitialPosition && AssetsManager.shared.isAuthorizeRequested {
             if pickerConfig.assetsIsScrollToBottom {
                 let count = AssetsManager.shared.assetArray.count
                 if count > 0 {
@@ -638,6 +638,9 @@ extension AssetsPhotoViewController: UICollectionViewDataSource {
         guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerReuseIdentifier, for: indexPath) as? AssetsPhotoFooterView else {
             logw("Failed to cast AssetsPhotoFooterView.")
             return AssetsPhotoFooterView()
+        }
+        if #available(iOS 11.0, *) {
+            footerView.contentInset = self.view.safeAreaInsets
         }
         footerView.setNeedsUpdateConstraints()
         footerView.updateConstraintsIfNeeded()

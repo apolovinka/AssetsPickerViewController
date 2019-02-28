@@ -9,6 +9,8 @@
 import UIKit
 
 open class AssetsPhotoFooterView: UICollectionReusableView {
+
+    var contentInset: UIEdgeInsets?
     
     private let countLabel: UILabel = {
         let label = UILabel()
@@ -31,9 +33,14 @@ open class AssetsPhotoFooterView: UICollectionReusableView {
     private func commonInit() {
         addSubview(countLabel)
         countLabel.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            var topInset: CGFloat = 0
+            if let contentInset = self.contentInset {
+                topInset = contentInset.bottom
+            }
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0))
         }
     }
+
     
     open func set(imageCount: Int, videoCount: Int) {
         var countText: String?
@@ -50,9 +57,7 @@ open class AssetsPhotoFooterView: UICollectionReusableView {
                 format: String(key: "Footer_Videos"),
                 NumberFormatter.decimalString(value: videoCount))
         } else {
-            countText = String(
-                format: String(key: "Footer_Items"),
-                NumberFormatter.decimalString(value: 0), NumberFormatter.decimalString(value: 0))
+            countText = ""
         }
         countLabel.text = countText
     }
