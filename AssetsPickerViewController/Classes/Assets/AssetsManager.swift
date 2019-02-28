@@ -142,6 +142,11 @@ extension AssetsManager {
 
 // MARK: - Permission
 extension AssetsManager {
+
+    open var isAuthorizeRequested: Bool {
+        return PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.notDetermined
+    }
+
     open func authorize(completion: @escaping ((Bool) -> Void)) {
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             completion(true)

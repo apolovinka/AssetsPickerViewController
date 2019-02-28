@@ -179,7 +179,7 @@ open class AssetsPhotoViewController: UIViewController {
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !didSetInitialPosition {
+        if !didSetInitialPosition && AssetsManager.shared.isAuthorizeRequested {
             if pickerConfig.assetsIsScrollToBottom {
                 guard let fetchResult = AssetsManager.shared.fetchResult else { return }
                 let count = fetchResult.count
