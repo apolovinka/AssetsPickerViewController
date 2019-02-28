@@ -474,7 +474,8 @@ extension AssetsPhotoViewController {
     
     func presentAlbumController(animated: Bool = true) {
         guard PHPhotoLibrary.authorizationStatus() == .authorized else { return }
-        let navigationController = UINavigationController()
+        
+        let navigationController = AssetsNavigationController()
         if #available(iOS 11.0, *) {
             navigationController.navigationBar.prefersLargeTitles = true
         }
