@@ -10,7 +10,15 @@ import UIKit
 
 open class AssetsPhotoFooterView: UICollectionReusableView {
 
-    var contentInset: UIEdgeInsets?
+    var contentInset: UIEdgeInsets? {
+        didSet {
+            var topInset: CGFloat = 0
+            if let contentInset = self.contentInset {
+                topInset = contentInset.bottom
+            }
+            countLabel.topConstraint.updateOffset(topInset)
+        }
+    }
     
     private let countLabel: UILabel = {
         let label = UILabel()
@@ -33,11 +41,7 @@ open class AssetsPhotoFooterView: UICollectionReusableView {
     private func commonInit() {
         addSubview(countLabel)
         countLabel.snp.makeConstraints { (make) in
-            var topInset: CGFloat = 0
-            if let contentInset = self.contentInset {
-                topInset = contentInset.bottom
-            }
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0))
+            make.edges.equalToSuperview()
         }
     }
 
