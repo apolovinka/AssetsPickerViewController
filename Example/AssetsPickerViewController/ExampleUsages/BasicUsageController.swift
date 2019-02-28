@@ -11,6 +11,7 @@ import AssetsPickerViewController
 class BasicUsageController: CommonExampleController {
     
     override func pressedPick(_ sender: Any) {
+        AssetsPickerConfig.statusBarStyle = .lightContent
         let picker = AssetsPickerViewController()
         picker.isShowLog = true
         picker.pickerDelegate = self
